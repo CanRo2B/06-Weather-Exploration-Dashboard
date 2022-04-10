@@ -29,35 +29,37 @@
     <header class="heading-container">
       <h1 class="heading">Weather Dashboard</h1>
     </header>
-    <main class="flex-row justify-space-between">
-      <section class="col-12 col-md-4">
+    <main class="flex-row">
+      <aside class="col-12 col-md-4 aside">
 
         <div class="column">
           <h3 class="column-header">Search for a City:</h3>
           <form id="user-search" class="column-search">
             <input name="City Name" class="search-box"></input>
-            <button class="search">Search</button>
+            <button id="search-form" class="search">Search</button>
           </form>
           <form class="history"></form>
         </div>
-      </section>
+      </aside>
 
-      <section class="col-12 col-md-8">
+      <section class="col-12 col-md-8 info">
         <div class="cityInfo">
           <h2 class="searchedCity">Showing Weather for: <span id="weather-searchCity"></span></h2>
+          <h3 class="date"></h3>
+          <img id="weather-icon" alt="">
           <div id="searchedCity-container" class="searchCity-info">
-            <div class="temp"></div>
-            <div class="wind"></div>
-            <div class="humidity"></div>
-            <div class="uvIndex"></div>
+            <p class="temp">Temperature: </p>
+            <p class="wind">Wind: </p>
+            <p class="humidity">Humidity: </p>
+            <p class="uvIndex">UV Index: </p>
           </div>
         </div>
-        <div>
-        <card class="fiveDay"></card>
-        <card class="fiveDay"></card>
-        <card class="fiveDay"></card>
-        <card class="fiveDay"></card>
-        <card class="fiveDay"></card>
+        <div class="card-group">
+          <card class="card fiveDay-1"></card>
+          <card class="card fiveDay-2"></card>
+          <card class="card fiveDay-3"></card>
+          <card class="card fiveDay-4"></card>
+          <card class="card fiveDay-5"></card>
         </div>
       </section>
 
