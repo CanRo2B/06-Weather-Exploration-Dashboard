@@ -119,7 +119,7 @@ function getWeather(inputCity) {
             }
         });
 }
-}
+
 
 
 
