@@ -1,0 +1,24 @@
+:root {
+--background-color: #ebf4f5;
+--btn-color: #595cff;
+--card-background: #03045e;
+
+}
+
+.heading-container {
+    display: flex;
+    justify-content: center;
+    padding: 15pt;
+    background-image: linear-gradient(right, rgba #9fccfa rgba #0974f1);
+   
+}
+
+.heading {
+    color: antiquewhite;
+}
+
+.cityInfo{
+    display: block;
+    border: 3pt solid var(--card-background);
+    
+}
