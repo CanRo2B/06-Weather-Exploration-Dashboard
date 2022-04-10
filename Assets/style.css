@@ -29,11 +29,13 @@ main {
 .search-box {
     width: 100%;
     padding: 2pt 5pt;
+    margin-bottom: 10pt;
 }
 
 .search {
     width: 100%;
     padding: 2pt 5pt;
+    background-color: #0974f1;
 }
 
 .info {
@@ -57,6 +59,7 @@ main {
 .cityInfo{
     display: block;
     border: 1pt solid var(--card-background);
+    margin-bottom: 10pt;
 
 }
 
@@ -81,6 +84,7 @@ main {
     display: flex;
     flex-direction: row;
     flex: 4;
+    
 
 }
 
@@ -88,4 +92,5 @@ main {
     flex: 1;
     justify-content: space-around;
     border:2pt solid #03045e;
+    padding: 5pt;
 }
