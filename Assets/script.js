@@ -108,15 +108,36 @@ function weatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWeathe
     currentUV.text(`UV Index: ${uvVal}`);
     weatherPic.att("src", cityWeatherIcon);
 }
-function getWeather(inputCity) {
-    let weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityName}&exclude={part}&appid={API key}&units-imperial`;
+var getCity = function (userCity){
+    let cityInfoURL= `http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&{limit}&appid=390d66b37dcbd064dba3890d8db84761` + cityName + "local_names";
+
+    fetch(cityInfoURL)
+    .then (function(response) {
+        if (response.ok){
+            console.log(response);
+            response.json().then(function(data){
+                console.log(data);
+                displayCityname(data, cityName);
+            });
+        } else {
+            alert("Error" + response.statusText);
+            }
+        })
+        // .then(function(data){
+        //     console.log(data);
+        // });
+    }
+function getWeather(searchInput) {
+const apiKey= "390d66b37dcbd064dba3890d8db84761";
+let weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=90d66b37dcbd064dba3890d8db84761`;
     
     fetch(weatherURL)
-        .then (function(weatherData) {
+        .then (function(searchInput) {
             let cityObj = {
                 cityName: weatherData.name,
 
             }
+            console.log(cityName);
         });
 }
 
