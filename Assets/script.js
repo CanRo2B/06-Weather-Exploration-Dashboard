@@ -37,35 +37,7 @@ dayjs.extend(window.dayjs_plugin_timezone);
 function displaySearchHistory() {
     searchDisplayBox.innerHTML = "";
 
-// // }
-// var weatherApiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=390d66b37dcbd064dba3890d8db84761`;
 
-// // call and show api key
-// function weatherData(weather) {
-    
-//     fetch(weather)
-//         .then (function(response) {
-//             console.log(response.status);
-//             return response.json()
-//     })
-//         .then(function(data){
-//             console.log(data);
-//     });
-}
-
-// weatherData(weatherApiUrl);
-
-// function searchCity(cityName) {
-//     var weatherURL="http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + apiKey;
-
-//     fetch(weatherURL)
-//         .then(function(response){
-        
-//             cityName.innerHTML = response.data.name + "(" + month + "/" + day + "/" + year + ")";
-//             currentTemp.innerHTML = "Temperature: " + k2f(response.data.main.temp) + "&176F";
-//             console.log(weatherURL);
-//         })
-// }
 
 if (JSON.parse(localStorage.getItem("searchHistory"))=== null) {
     console.log("searchHistory not found")
@@ -108,6 +80,86 @@ function weatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWeathe
     currentUV.text(`UV Index: ${uvVal}`);
     weatherPic.att("src", cityWeatherIcon);
 }
+
+
+function getWeather(searchInput) {
+    const apiKey= "390d66b37dcbd064dba3890d8db84761";
+    
+    let weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=90d66b37dcbd064dba3890d8db84761`;
+
+    let latlon = "https://api.openweathermap.org/data/2.5/weather?q=" +
+                searchInput +
+                "&units=imperial&appid=390d66b37dcbd064dba3890d8db84761";
+    
+        console.log(latlon);
+        
+        fetch(latlon)
+                .then(response => response.json())
+                .then(data => console.log(data))
+
+            .then(function(weatherData){
+                    let cityObj= {
+                        cityName: weatherData.main.name,
+                        cityTemp: weatherData.main.temp,
+                        cityWindSpeed: weatherData.wind.speed,
+                        cityHumidity: weatherData.main.humidity,
+                        cityUVIndex: weatherData.coord,
+                        cityWeatherIcon: weatherData.weather[0].icon
+                    }
+            
+                    
+            .then(function() {
+                if (JSON.parse(localStorage.getItem("searchHistory"))==null) {
+                    let searchArray = []
+                    if(searchArray.indexOf(cityObj.cityName)===-1) {
+                        searchArray.push(cityObj.cityName);
+                    
+                        localStorage.setItem("searchHistory",JSON.stringify(searchArray));
+                    
+
+                        weatherData(cityObj.cityName, cityObj.cityTemp, cityObj.cityWindSpeed, cityObj.cityHumidity, cityObj.cityWeatherIcon, cityObj.cityUVIndex);
+                        rendersearchHistory(cityObj.cityName);
+            
+                    } else {
+                        console.log("City in history.")
+                        weatherData(cityObj.cityName, cityObj.cityTemp, cityObj.cityWindSpeed, cityObj.cityHumidity, cityObj.cityWeatherIcon, cityObj.cityUVIndex);
+                    } else {
+
+                    let searchArray = JSON.parse(localStorage.getItem("searchHistory"));
+
+                    if (searchArray.indexOf(cityObj.cityName)===-1) {
+                        searchArray.push(cityObj.cityName);
+
+                        localStorage.setItem("searchHistory", JSON.stringify(searchArray));
+
+                        weatherData(cityObj.cityName, cityObj.cityTemp, cityObj.cityWindSpeed, cityObj.cityHumidity, cityObj.cityWeatherIcon, cityObj.cityUVIndex);
+                        rendersearchHistory(cityObj.cityName);
+                    }else {
+                        console.log("City in history")
+
+                        weatherData(cityObj.cityName, cityObj.cityTemp, cityObj.cityWindSpeed, cityObj.cityHumidity, cityObj.cityWeatherIcon, cityObj.cityUVIndex);
+                    }
+                }
+            }
+                    })
+
+            });
+            
+            
+    
+                
+                     
+
+}
+                
+
+
+
+// make request to the one call and show them how to make an API key
+// fetch coordinates
+// fetch weather
+// fetch renderItems(city, data){}
+
 // var getCity = function (userCity){
 //     let cityInfoURL= `http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&{limit}&appid=390d66b37dcbd064dba3890d8db84761` + cityName + "local_names";
 
@@ -129,37 +181,32 @@ function weatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWeathe
     // }
 // f
 
-function getWeather(searchInput) {
-    const apiKey= "390d66b37dcbd064dba3890d8db84761";
+// // }
+// var weatherApiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=390d66b37dcbd064dba3890d8db84761`;
+
+// // call and show api key
+// function weatherData(weather) {
     
-    let weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=90d66b37dcbd064dba3890d8db84761`;
-    
-    let latlon = "https://api.openweathermap.org/data/2.5/weather?q=" +
-                searchInput +
-                "&units=imperial&appid=390d66b37dcbd064dba3890d8db84761";
-    
-        console.log(latlon);
+//     fetch(weather)
+//         .then (function(response) {
+//             console.log(response.status);
+//             return response.json()
+//     })
+//         .then(function(data){
+//             console.log(data);
+//     });
+}
+
+// weatherData(weatherApiUrl);
+
+// function searchCity(cityName) {
+//     var weatherURL="http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + apiKey;
+
+//     fetch(weatherURL)
+//         .then(function(response){
         
-        fetch(latlon)
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .then(function(weatherData){
-                    let cityObj= {
-                        cityName: weatherData.main.name,
-                        cityTemp: weatherData.main.temp,
-                        cityWindSpeed: weatherData.wind.speed,
-                        cityHumidity: weatherData.main.humidity,
-                        cityUVIndex: weatherData.coord,
-                        cityWeatherIcon: weatherData.weather[0].icon
-                    }
-                })
-            }
-            
-
-
-
-
-// make request to the one call and show them how to make an API key
-// fetch coordinates
-// fetch weather
-// fetch renderItems(city, data){}
+//             cityName.innerHTML = response.data.name + "(" + month + "/" + day + "/" + year + ")";
+//             currentTemp.innerHTML = "Temperature: " + k2f(response.data.main.temp) + "&176F";
+//             console.log(weatherURL);
+//         })
+// }
