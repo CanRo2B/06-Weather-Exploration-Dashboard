@@ -89,6 +89,9 @@ main {
 .card {
     flex: 1;
     justify-content: space-around;
-    border:2pt solid #03045e;
+    border:2pt solid var(--card-background);
+    background-color: var(--btn-color);
+    color: var(--background-color);
+    height: 150;
     padding: 5pt;
 }

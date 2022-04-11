@@ -100,7 +100,7 @@ function rendersearchHistory(cityName) {
     }
 }
 function weatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWeatherIcon, uvVal) {
-    cityName.text(cityName);
+    // cityName.text(cityName);
     currentDate.text(`(${today})`);
     currentTemp.text(`Temperature: ${cityTemp} °F`);
     currentWind.text(`Wind Speed: ${cityWindSpeed} MPH`);
@@ -108,38 +108,53 @@ function weatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWeathe
     currentUV.text(`UV Index: ${uvVal}`);
     weatherPic.att("src", cityWeatherIcon);
 }
-var getCity = function (userCity){
-    let cityInfoURL= `http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&{limit}&appid=390d66b37dcbd064dba3890d8db84761` + cityName + "local_names";
+// var getCity = function (userCity){
+//     let cityInfoURL= `http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&{limit}&appid=390d66b37dcbd064dba3890d8db84761` + cityName + "local_names";
 
-    fetch(cityInfoURL)
-    .then (function(response) {
-        if (response.ok){
-            console.log(response);
-            response.json().then(function(data){
-                console.log(data);
-                displayCityname(data, cityName);
-            });
-        } else {
-            alert("Error" + response.statusText);
-            }
-        })
+//     fetch(cityInfoURL)
+//     .then (function(response) {
+//         if (response.ok){
+//             console.log(response);
+//             response.json().then(function(data){
+//                 console.log(data);
+//                 displayCityname(data, cityName);
+//             });
+//         } else {
+//             alert("Error" + response.statusText);
+//             }
+//         })
         // .then(function(data){
         //     console.log(data);
         // });
-    }
-function getWeather(searchInput) {
-const apiKey= "390d66b37dcbd064dba3890d8db84761";
-let weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=90d66b37dcbd064dba3890d8db84761`;
-    
-    fetch(weatherURL)
-        .then (function(searchInput) {
-            let cityObj = {
-                cityName: weatherData.name,
+    // }
+// f
 
+function getWeather(searchInput) {
+    const apiKey= "390d66b37dcbd064dba3890d8db84761";
+    
+    let weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=90d66b37dcbd064dba3890d8db84761`;
+    
+    let latlon = "https://api.openweathermap.org/data/2.5/weather?q=" +
+                searchInput +
+                "&units=imperial&appid=390d66b37dcbd064dba3890d8db84761";
+    
+        console.log(latlon);
+        
+        fetch(latlon)
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .then(function(weatherData){
+                    let cityObj= {
+                        cityName: weatherData.main.name,
+                        cityTemp: weatherData.main.temp,
+                        cityWindSpeed: weatherData.wind.speed,
+                        cityHumidity: weatherData.main.humidity,
+                        cityUVIndex: weatherData.coord,
+                        cityWeatherIcon: weatherData.weather[0].icon
+                    }
+                })
             }
-            console.log(cityName);
-        });
-}
+            
 
 
 
