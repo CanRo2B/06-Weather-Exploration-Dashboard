@@ -1,41 +1,44 @@
-// const searchHistory = [];
-// const weatherApiUrl = "https://api.openweathermap.org/";
-const apiKey= "390d66b37dcbd064dba3890d8db84761";
+const searchHistor = [];
+const weatherUrl = "https://openweathermap.org/";
+const apiKey = "390d66b37dcbd064dba3890d8db84761";
 
-// Search button
-// let searchForm = document.querySelector("#search-form");
-let searchForm = $(".search-form");
-// User search input
-// let searchInput = document.querySelector("search-box");
-let searchInput = $(".search-box");
-// User search history
-// let searchHistory = document.querySelector(".history");
-let searchHistory = $(".history");
-let todayBox
+let searchForm = document.querySelector("#search-form");
+let searchInput = document.querySelector("search-box");
+let todayBox 
 let forecastBox
 let searchDisplayBox
-// Input name for the valued results
-// let cityName= document.getElementById("weather-searchCity");
-let cityName = $("#weather-searchCity");
-// let currentDate= document.querySelector("date");
-let currentDate= $(".date");
-// let weatherPic= document.getElementById("weather-icon");
-let weatherPic= $(".temp");
-// let currentTemp= document.querySelector(".temp");
-let currentTemp = $(".temp");
-// let currentWind= document.querySelector(".wind");
-let currentWind = $(".wind");
-// let currentHumidity= document.querySelector(".humidity");
-let currentHumidity = $(".humidity");
-// let currentUV= document.querySelector(".uvIndex");
+let cityName = document.getElementById("weather-searchCity");
+let currentDate = document.querySelector("date");
+let weatherPic = document.getElementById("weather-icon");
+let currentTemp = document.querySelector(".temp");
+let currentWind = document.querySelector(".wind");
+let currentHumidity = document.querySelector(".humidity");
 let currentUV = (".uvIndex");
 
-// Add timezone from day.js
+// Timezone for day.js
 dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
 
+// Function to display search history
 function displaySearchHistory() {
-    searchDisplayBox.innerHTML = "";
+    searchDisplayBox.innerHTML = " ";
+}
+
+// var weatherApiUrl = 
+// // Requet one call 
+// function weatherData(weatherApi) {
+//     fetch(weatherApi)
+//     .then(function(response){
+//         response.json
+//     })
+//     .then(function(data){
+//         console.log(data);
+//     })
+// }
+// weatherData(weatherApiUrl)
+
+// function displaySearchHistory() {
+//     searchDisplayBox.innerHTML = "";
 
 
 
@@ -46,8 +49,7 @@ if (JSON.parse(localStorage.getItem("searchHistory"))=== null) {
     rendersearchHistory();
 }
 
-searchForm.on("click", function(e){
-    e.preventDefault();
+searchForm.on("click", function(){
     if (searchInput.val()==="") {
         alert("Please enter a city");
         return;
@@ -72,7 +74,7 @@ function rendersearchHistory(cityName) {
     }
 }
 function weatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWeatherIcon, uvVal) {
-    // cityName.text(cityName);
+    cityName.text(`${cityName}`);
     currentDate.text(`(${today})`);
     currentTemp.text(`Temperature: ${cityTemp} °F`);
     currentWind.text(`Wind Speed: ${cityWindSpeed} MPH`);
@@ -85,7 +87,7 @@ function weatherData(cityName, cityTemp, cityHumidity, cityWindSpeed, cityWeathe
 function getWeather(searchInput) {
     const apiKey= "390d66b37dcbd064dba3890d8db84761";
     
-    let weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=90d66b37dcbd064dba3890d8db84761`;
+    let weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=390d66b37dcbd064dba3890d8db84761`;
 
     let latlon = "https://api.openweathermap.org/data/2.5/weather?q=" +
                 searchInput +
@@ -99,12 +101,12 @@ function getWeather(searchInput) {
 
             .then(function(weatherData){
                     let cityObj= {
-                        cityName: weatherData.main.name,
-                        cityTemp: weatherData.main.temp,
-                        cityWindSpeed: weatherData.wind.speed,
-                        cityHumidity: weatherData.main.humidity,
-                        cityUVIndex: weatherData.coord,
-                        cityWeatherIcon: weatherData.weather[0].icon
+                        cityName: "weatherData.main.name",
+                        cityTemp: "weatherData.main.temp",
+                        cityWindSpeed: "weatherData.wind.speed",
+                        cityHumidity: "weatherData.main.humidity",
+                        cityUVIndex: "weatherData.coord",
+                        cityWeatherIcon: "weatherData.weather[0].icon",
                     }
             
                     
@@ -123,7 +125,7 @@ function getWeather(searchInput) {
                     } else {
                         console.log("City in history.")
                         weatherData(cityObj.cityName, cityObj.cityTemp, cityObj.cityWindSpeed, cityObj.cityHumidity, cityObj.cityWeatherIcon, cityObj.cityUVIndex);
-                    } else {
+                    // } else {
 
                     let searchArray = JSON.parse(localStorage.getItem("searchHistory"));
 
@@ -134,7 +136,7 @@ function getWeather(searchInput) {
 
                         weatherData(cityObj.cityName, cityObj.cityTemp, cityObj.cityWindSpeed, cityObj.cityHumidity, cityObj.cityWeatherIcon, cityObj.cityUVIndex);
                         rendersearchHistory(cityObj.cityName);
-                    }else {
+                    } else {
                         console.log("City in history")
 
                         weatherData(cityObj.cityName, cityObj.cityTemp, cityObj.cityWindSpeed, cityObj.cityHumidity, cityObj.cityWeatherIcon, cityObj.cityUVIndex);
@@ -143,13 +145,7 @@ function getWeather(searchInput) {
             }
                     })
 
-            });
-            
-            
-    
-                
-                     
-
+            });         
 }
                 
 
@@ -195,7 +191,7 @@ function getWeather(searchInput) {
 //         .then(function(data){
 //             console.log(data);
 //     });
-}
+
 
 // weatherData(weatherApiUrl);
 
